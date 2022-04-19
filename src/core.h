@@ -8,12 +8,13 @@ namespace VKCPP
 
 #define VKCPP_MAKE_VERSION(variant, major, minor, patch) VK_MAKE_API_VERSION(variant, major, minor, patch)
 #define VKCPP_VERSION VKCPP_MAKE_VERSION(0, 0, 0, 1)
+#define VKCPP_STYPE(T) VK_STRUCTURE_TYPE_##T##_CREATE_INFO
 #define VKCPP_DERIVED_FROM(T) sType = VK_STRUCTURE_TYPE_##T##_CREATE_INFO; pNext = nullptr;
 #define VKCPP_DELETE_COPY_CONSTRUCTOR(T) T(const T &) = delete;
 #define VKCPP_DELETE_COPY_ASSIGNMENT(T) T &operator=(const T &) = delete;
 #define VKCPP_DELETE_COPY(T) VKCPP_DELETE_COPY_CONSTRUCTOR(T) VKCPP_DELETE_COPY_ASSIGNMENT(T)
 
-#define VKCPP_OPERATOR_HANDLE() Primitive Handle() const { return handle; } operator Primitive() const { return handle; }
+#define VKCPP_OPERATOR_HANDLE() Primitive Handle() const { return handle; } operator Primitive() const { return handle; }  protected: Primitive handle{ VK_NULL_HANDLE };
 
 #define VKCPP_CASE(x) case x: return #x;
 inline const char *Stringify(VkResult err)

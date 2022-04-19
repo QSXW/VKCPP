@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core.h"
+#include <vector>
 
 namespace VKCPP
 {
@@ -17,14 +18,10 @@ public:
 	static PFN_vkGetPhysicalDeviceSparseImageFormatProperties GetSparseImageFormatProperties;
 
     using Primitive = VkPhysicalDevice;
+    VKCPP_OPERATOR_HANDLE()
 
 public:
-    VKCPP_OPERATOR_HANDLE()
-    PhysicalDevice(Primitive other) :
-        handle{ other }
-    {
-
-    }
+    PhysicalDevice(Primitive other);
 
 public: /* inline */
     void swap(PhysicalDevice &other)
@@ -67,8 +64,13 @@ public: /* inline */
         GetSparseImageFormatProperties(handle, format, type, samples, usage, tiling, pPropertyCount, pProperties);
     }
 
+    const std::vector<VkQueueFamilyProperties> &get_queue_family_properties() const
+    {
+        return queue_family_properties;
+    }
+
 protected:
-    Primitive handle = VK_NULL_HANDLE;
+    std::vector<VkQueueFamilyProperties> queue_family_properties;
 };
 
 }

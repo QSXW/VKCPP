@@ -41,5 +41,14 @@ int main()
     instance->listen_debug_report_callback();
     instance->listen_debug_utils_messenger();
 
+    Device::CreateInfo device_create_info{};
+    device_create_info.flags                   = 0;
+    device_create_info.enabledLayerCount       = 0;
+    device_create_info.ppEnabledLayerNames     = nullptr;
+    device_create_info.enabledExtensionCount   = 0;
+    device_create_info.ppEnabledExtensionNames = nullptr;
+
+    Ref<Device> device{ new Device{ physical_device, &device_create_info } };
+
     return 0;
 }

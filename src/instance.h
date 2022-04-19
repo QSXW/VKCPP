@@ -31,8 +31,6 @@ public:
 
     static void Init();
 
-    using Primitive   = VkInstance;
-
     struct CreateInfo : public VkInstanceCreateInfo
     {
         CreateInfo()
@@ -42,6 +40,9 @@ public:
     };
 
     using Description = CreateInfo;
+
+    using Primitive   = VkInstance;
+    VKCPP_OPERATOR_HANDLE()
 
 public:
     Instance(const std::string &name, const std::vector<const char *> &requestExtension, const std::vector<const char *> &requestLayers, uint32_t apiVersion = VK_API_VERSION_1_2);
@@ -60,7 +61,6 @@ public:
     PhysicalDevice *get_physical_device(uint32_t index = 0);
 
 public: /* inline */
-    VKCPP_OPERATOR_HANDLE()
     VKCPP_DELETE_COPY(Instance)
 
     Instance() :
@@ -132,8 +132,6 @@ private:
     void init_physical_devices_();
 
 protected:
-    VkInstance handle;
-
     std::vector<MonoRef<PhysicalDevice>> physical_devics;
 
     VkDebugUtilsMessengerEXT debug_utils_messenger = VK_NULL_HANDLE;
